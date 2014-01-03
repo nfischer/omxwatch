@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# This script is designed to eliminate aesthetic problems when launching
+# omxplayer from the command line
+# Version 1.5
+
+if [ -z "$(which omxplayer)" ]; then
+	echo "You must install omxplayer to use this script. Try:" >&2
+	echo "   sudo apt-get install omxplayer" >&2
+	exit 2
+fi
+
+# Check for errors regarding arguments passed
+if [ $# = 0 ]; then
+	echo "You must pass a movie name. Terminating script." >&2
+	exit 1
+fi
+
+# necessary because stdout in later call is thrown away
+if [[ "$1" = "-h" || "$1" = "--help" ]]; then
+	omxplayer -h
+	exit 0
+fi
+
+# Clear the screen
+clear
+setterm -cursor off
+
+# Play the video and check for failure
+
+# Note: omxplayer handles failures in the case of invalid
+# (i.e. non-video) file types
+
+omxplayer "$*" >/dev/null
+if [ $? != 0 ]; then
+	echo "Error: omxplayer failure. Terminating script." >&2
+	exit 1
+fi
+
+# clean up and exit 
+setterm -cursor on
+
+echo -en "\nThank you for using omxwatch.\n"
+echo "Have a nice day :)"
+exit 0
