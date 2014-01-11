@@ -1,0 +1,11 @@
+## movie files ##
+*.avi
+*.mp4
+*.mkv
+*.flv
+*.m4v
+*.wmv
+
+## vim ##
+*.swp
+*~

@@ -7,6 +7,7 @@
 if [ -z "$(which omxplayer)" ]; then
 	echo "You must install omxplayer to use this script. Try:" >&2
 	echo "   sudo apt-get install omxplayer" >&2
+	echo "Or look at http://omxplayer.sconde.net/ for more documentation." >&2
 	exit 2
 fi
 
