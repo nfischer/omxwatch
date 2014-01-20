@@ -5,9 +5,11 @@
 # Version 1.5
 
 if [ -z "$(which omxplayer)" ]; then
-	echo "You must install omxplayer to use this script. Try:" >&2
-	echo "   sudo apt-get install omxplayer" >&2
-	echo "Or look at http://omxplayer.sconde.net/ for more documentation." >&2
+cat << EOF >&2
+You must install omxplayer to use this script. Try:
+    $ sudo apt-get install omxplayer
+Or look at http://omxplayer.sconde.net/ for more documentation.
+EOF
 	exit 2
 fi
 
@@ -15,6 +17,18 @@ fi
 if [ $# = 0 ]; then
 	echo "You must pass a movie name. Terminating script." >&2
 	exit 1
+fi
+
+# Handles the instance that you're running from a GUI
+if [ ! -z $DISPLAY ]; then # not in true CLI
+cat << EOF >&2
+You are not currently running in a true command line. For
+best results, exit the GUI and run this command again. Try:
+    CTRL-ALT-Backspace
+To kill the GUI.
+EOF
+read -s -p "press enter to continue:" trashVar
+echo "" # print newline
 fi
 
 # necessary because stdout in later call is thrown away
