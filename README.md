@@ -53,7 +53,6 @@ More to Come
 ------------
 What is yet to come? Here are some features I still want to implement for
 omxwatch:
-- Ability to detect if X is running
 - Ability to exit to the commandline for you
 - More ability to customize options you want as defaults (i.e. -o hdmi)
 - And more...
