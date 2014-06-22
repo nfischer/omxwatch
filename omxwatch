@@ -10,31 +10,32 @@ You must install omxplayer to use this script. Try:
     $ sudo apt-get install omxplayer
 Or look at http://omxplayer.sconde.net/ for more documentation.
 EOF
-	exit 2
+    exit 2
 fi
 
 # Check for errors regarding arguments passed
 if [ $# = 0 ]; then
-	echo "You must pass a movie name. Terminating script." >&2
-	exit 1
+    echo "You must pass a movie name. Terminating script." >&2
+    exit 1
 fi
 
 # Handles the instance that you're running from a GUI
 if [ ! -z $DISPLAY ]; then # not in true CLI
 cat << EOF >&2
-You are not currently running in a true command line. For
-best results, exit the GUI and run this command again. Try:
+You are not currently running in a true command line. For best results,
+exit the GUI and run this command again.
+Try:
     CTRL-ALT-Backspace
-To kill the GUI.
+To kill the GUI. Then run your omxwatch command again.
 EOF
-read -s -p "press enter to continue:" trashVar
+read -s -p "Or press enter to continue watching here:" trashVar
 echo "" # print newline
 fi
 
 # necessary because stdout in later call is thrown away
 if [[ "$1" = "-h" || "$1" = "--help" ]]; then
-	omxplayer -h
-	exit 0
+    omxplayer -h
+    exit 0
 fi
 
 # Clear the screen
@@ -46,15 +47,16 @@ setterm -cursor off
 # Note: omxplayer handles failures in the case of invalid
 # (i.e. non-video) file types
 
+status="0"
 omxplayer "$*" >/dev/null
 if [ $? != 0 ]; then
-	echo "Error: omxplayer failure. Terminating script." >&2
-	exit 1
+    echo "Error: omxplayer failure. Terminating script." >&2
+    status="1"
 fi
 
-# clean up and exit 
+# clean up and exit
 setterm -cursor on
 
 echo -en "\nThank you for using omxwatch.\n"
 echo "Have a nice day :)"
-exit 0
+exit $status
